@@ -1,0 +1,48 @@
+<div class="container mt-3">
+    <div class="row mb-3">
+      <div class="col d-flex">
+        <input [(ngModel)]="filter" (input)="filterTasks()" class="form-control" placeholder="Search tasks">
+        <a routerLink="add" class="btn btn-primary ms-2 no-wrap">Add</a>
+      </div>
+    </div>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of paginatedTasks">
+          <td>{{ task.title }}</td>
+          <td>{{ task.body }}</td>
+          <td>
+            <div class="d-flex">
+              <a [routerLink]="task.id" class="btn btn-secondary btn-sm me-2">Edit</a>
+              <button (click)="deleteTask(task.id)" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="page === 1">
+            <a class="page-link" (click)="page = page - 1">Previous</a>
+          </li>
+          <li class="page-item" [class.active]="page === i" *ngFor="let i of [].constructor(math.ceil(filteredTasks.length / pageSize)); let index = index">
+            <a class="page-link" (click)="page = index + 1">{{ index + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="page === math.ceil(filteredTasks.length / pageSize)">
+            <a class="page-link" (click)="page = page + 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+  </div>
+
+
+
+  
